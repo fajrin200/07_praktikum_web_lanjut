@@ -20,7 +20,7 @@
                     </div>
                     @endif
 
-                    <form method="post" action="{{ route('mahasiswas.update', $Mahasiswa->Nim) }}" id="myForm">
+                    <form method="post" action="{{ route('mahasiswa.update', $Mahasiswa->id) }}" id="myForm">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -34,9 +34,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Kelas">Kelas</label>
-                        <input type="Kelas" name="Kelas" class="form-control" id="Kelas" value="{{ $Mahasiswa->Kelas }}" ariadescribedby="Kelas" >
-                    </div>
+                            <label for="kelas">Kelas</label>
+                            <select name="kelas" class="form-control">
+                                @foreach ($kelas as $kls)
+                                    <option value="{{ $kls->id }}" {{ $Mahasiswa->kelas_id == $kls->id ? 'selected': '' }}>{{ $kls->nama_kelas }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                     <div class="form-group">
                         <label for="Jurusan">Jurusan</label>
