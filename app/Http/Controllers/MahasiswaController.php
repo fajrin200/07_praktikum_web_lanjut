@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use App\Models\kelas;
 
 class MahasiswaController extends Controller
 {
@@ -15,10 +16,10 @@ class MahasiswaController extends Controller
     public function index()
     {
         // fungsi eloquent menampilkan data menggunakan pagination
-        $Mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
-        $post = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
-        return view('mahasiswas.index', compact('Mahasiswas'));
-        with('i', (request()->input('page', 1) - 1) * 5);
+        $mahasiswa = Mahasiswa::with('kelas')->get(); // Mengambil semua isi tabel
+        $paginate = Mahasiswa::orderBy('id', 'asc')->paginate(3);
+        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa, 'paginate'=>$paginate]);
+       
     }
 
     /**
@@ -26,10 +27,13 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        return view('mahasiswas.create');
+        $kelas = Kelas::all(); //mendapatkan data dari tabel kelas
+        return view('mahasiswa.create',['kelas'=>$kelas]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +58,7 @@ class MahasiswaController extends Controller
         Mahasiswa::create($request->all());
 
         // Jika data berhasil ditambahkan, akan kembali ke halaman utama
-        return redirect()->route('mahasiswas.index')
+        return redirect()->route('mahasiswa.index')
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
     }
 
@@ -68,7 +72,7 @@ class MahasiswaController extends Controller
     {
         // Menampilkan detail data dengan menemukan/berdasarkan Nim Mahasiswa
         $Mahasiswa = Mahasiswa::find($Nim);
-        return view('mahasiswas.detail', compact('Mahasiswa'));
+        return view('mahasiswa.detail', compact('Mahasiswa'));
     }
 
     /**
@@ -81,7 +85,7 @@ class MahasiswaController extends Controller
     {
         // Menampilkan detail data dengan menemukan berdasarkan Nim Mahasiswa untuk diedit
         $Mahasiswa = Mahasiswa::find($Nim);
-        return view('mahasiswas.edit', compact('Mahasiswa'));
+        return view('mahasiswa.edit', compact('Mahasiswa'));
     }
 
     /**
@@ -108,7 +112,7 @@ class MahasiswaController extends Controller
         Mahasiswa::find($Nim)->update($request->all());
 
         // Jika data berhasil diupdate, akan kembali ke halaman utama
-        return redirect()->route('mahasiswas.index')
+        return redirect()->route('mahasiswa.index')
             ->with('success', 'Mahasiswa Berhasil Diupdate');
     }
 
@@ -122,13 +126,13 @@ class MahasiswaController extends Controller
     {
         // Fungsi eloquent untuk menghapus data
         Mahasiswa::find($Nim)->delete();
-        return redirect()->route('mahasiswas.index')
+        return redirect()->route('mahasiswa.index')
             -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
    
     public function tampil(){
         $Mahasiswas = Mahasiswa::paginate(5);
-        return view('mahasiswas.tampil', compact('Mahasiswas'));
+        return view('mahasiswa.tampil', compact('Mahasiswa'));
     }
 
     public function cari(Request $request){
@@ -137,6 +141,6 @@ class MahasiswaController extends Controller
 
         $Mahasiswa = Mahasiswa::where('Nama','like',"%".$cari."%")->get();
 
-        return view('mahasiswas.index',['Mahasiswas'=>$Mahasiswa]);
+        return view('mahasiswa.index',['Mahasiswa'=>$Mahasiswa]);
     }
 }
