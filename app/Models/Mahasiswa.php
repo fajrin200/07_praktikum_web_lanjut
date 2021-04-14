@@ -7,12 +7,13 @@ namespace App\Models;
     use Illuminate\Foundation\Auth\Mahasiswa as Authenticatable;
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Database\Eloquent\Model; //Model Eloquent
+    use App\Models\kelas;
 
 class Mahasiswa extends Model
 {
-    protected $table="mahasiswa"; // Eloquent akan membuat model mahasiswa menyimpan record di tabel mahasiswas
+    protected $table="mahasiswas"; // Eloquent akan membuat model mahasiswa menyimpan record di tabel mahasiswas
     public $timestamps= false;
-    protected $primaryKey = 'Nim'; // Memanggil isi DB Dengan primarykey
+    //protected $primaryKey = ''; // Memanggil isi DB Dengan primarykey
     /**
     * The attributes that are mass assignable.
     *
@@ -21,10 +22,14 @@ class Mahasiswa extends Model
     protected $fillable = [
         'Nim',
         'Nama',
-        'Kelas',
         'Jurusan',
         'No_Handphone',
         'EMail',
         'Tanggal_lahir',
     ];
+
+    public function kelas()
+    {
+        return $this->belongsTo(kelas::class);
+    }
 }
