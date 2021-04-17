@@ -8,6 +8,7 @@ namespace App\Models;
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Database\Eloquent\Model; //Model Eloquent
     use App\Models\kelas;
+    use App\Models\Matakuliah;
 
 class Mahasiswa extends Model
 {
@@ -31,5 +32,9 @@ class Mahasiswa extends Model
     public function kelas()
     {
         return $this->belongsTo(kelas::class);
+    }
+    public function matakuliah()
+    {
+        return $this->belongsToMany(Matakuliah::class)->withpivot('nilai');
     }
 }
