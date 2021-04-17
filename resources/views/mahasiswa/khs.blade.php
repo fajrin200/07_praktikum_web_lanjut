@@ -7,9 +7,9 @@
             <br><h1>KARTU HASIL STUDI(KHS)</h1>
         </div>
         <div class="card-body">
-                <p><b>Nama  : </b>{{ $mahasiswa->nama }}
-                <p><b>NIM   : </b>{{ $ahasiswa->nim }}
-                <p><b>Kelas : </b>{{ $ahasiswa->kelas->nama_kelas }}
+                <p><b>Nama  : </b>{{ $mahasiswa->Nama }}
+                <p><b>NIM   : </b>{{ $mahasiswa->Nim }}
+                <p><b>Kelas : </b>{{ $mahasiswa->kelas->nama_kelas }}
         </div>
     </div>
 </div>
@@ -24,11 +24,11 @@
       </tr>
     </thead>
     <tbody>
-        @foreach ($Mahasiswa->matakuliah as $item)
+        @foreach ($mahasiswa->matakuliah as $item)
             <tr>
                 <th scope="row">{{$item->nama_matkul}}</th>
                 <td>{{$item->sks}}</td>
-                <td>{{ $item->semester }}</td>
+                <td>{{$item->semester }}</td>
                 <td>{{$item->pivot->nilai}}</td>
             </tr>
         @endforeach
