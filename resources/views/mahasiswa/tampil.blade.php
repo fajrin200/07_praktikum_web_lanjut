@@ -38,7 +38,7 @@
              </td>
          </tr>
      @endforeach
- </table>
+     </table>
  Halaman : {{ $Mahasiswas->currentPage() }} <br/>
  Jumlah Data : {{ $Mahasiswas->total() }} <br/>
  Data Per Halaman : {{ $Mahasiswas->perPage() }} <br/>
