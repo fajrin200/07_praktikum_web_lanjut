@@ -174,6 +174,7 @@ class MahasiswaController extends Controller
 
     public function nilai($id)
     {
-        // 
+        $Mahasiswa = Mahasiswa::find($id);
+        return view('mahasiswa.khs',['mahasiswa'=>$Mahasiswa]);
     }
 }
