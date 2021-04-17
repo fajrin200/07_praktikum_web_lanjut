@@ -171,4 +171,9 @@ class MahasiswaController extends Controller
 
         return view('mahasiswa.index',['Mahasiswa'=>$Mahasiswa]);
     }
+
+    public function nilai($id)
+    {
+        // 
+    }
 }
